@@ -32,9 +32,9 @@ function showRecursive(data, place, num, reclvl) {
         var idStr = ' id="' + num + '"';
         str = '<div class="media">';
         str += '<a class="pull-left" href="#"><img class="media-object" src="/comments/comment.png" alt="Media Object"></a>';
-        str += '<div' + recStr + idStr + '><h4 class="media-heading">' + data.self.message + '</h4>';
+        str += '<div' + recStr + idStr + '><h4 class="media-heading">';
+        str += data.self.name + ' (' + data.self.email + ')</h4>';
         str += data.self.message + '</div>';
-//        str +=
         el = $(str);
         place.append(el);
         place = el;
