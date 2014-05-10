@@ -15,18 +15,17 @@ function showRecursive(data, place, num, reclvl) {
     // posts and comments different selectors
     // if post
     if (data.self.parent == 0) {
-//        el = $(".media");
-//        place.append(el);
-
-
         str = '<div class="media">';
         str += '<a class="pull-left" href="#"><img class="media-object" src="/comments/post.png" alt="Media Object"></a>';
         str += '<div class="post media-body" id="' + num + '">';
         str += '<h4 class="media-heading">' + data.self.title + '</h4>' + data.self.post + '</div></div>';
         el = $(str);
         place.append(el);
-        el =
         place = el;
+
+        // to append comments under post with left padding
+        var numStr = '"#' + num + '"';
+        place = $(".media .media-body").filter(".post").filter(numStr);
     } else {
         // if comment
         var recStr = ' class="comment media-body lvl' + reclvl + '"';
