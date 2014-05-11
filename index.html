@@ -13,6 +13,7 @@
 <body>
 
 <div class="container">
+
 <div class="page-header">
   <h1>Comments loader <small>using AJAX to get JSON from *AMP to create DOM</small></h1>
 </div>
@@ -21,12 +22,15 @@
 <form action="" id="myform" role="form" class="form-inline">
 <div class="form-group">
 	<label for="name">Name</label>
-	<input type="text" class="form-control" name="mydata" id="mydata" placeholder="Name">
+	<input type="text" class="form-control" name="name" id="name" placeholder="Name">
 	</div>
-
 	<div class="form-group">
-	<label for="email">email</label>
-	<input type="email" class="form-control" name="mydata1" id="mydata1" placeholder="email">
+	<label for="email">Email</label>
+	<input type="email" class="form-control" name="email" id="email" placeholder="email">
+	</div>
+	<div class="form-group">
+	<label for="message">Message</label>
+	<input type="text" class="form-control" name="message" id="message" placeholder="Message">
 	</div>
 	<input type="button" onclick="send();" value="Reply" class="btn btn-default">
 </form>

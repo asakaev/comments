@@ -6,7 +6,8 @@ function test() {
 }
 
 function send() {
-	var data = $('#mydata').val();
-	var data1 = $('#mydata1').val();
-	console.log('data1: ' + data + ', data2: ' + data1);
+	var name = $('#name').val();
+	var email = $('#email').val();
+    var message = $('#message').val();
+	console.log('name: ' + name + ', email: ' + email + ', message: ' + message);
 }

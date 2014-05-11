@@ -55,7 +55,10 @@ function showRecursive(data, place, num, reclvl) {
         form += '<input type="text" class="form-control" placeholder="comment">';
         form += '<button type="submit" class="btn btn-default"">Reply</button></form>';
 
+        console.log($('#btn' + data.self.id));
+
         $('#btn' + data.self.id).parent().parent().html(form);
+
 
         $("#repForm").submit(function(e) {
             console.log($(this));
