@@ -2,9 +2,23 @@ var str, el, placeToForm;
 var formIsOpened = false;
 var backupElem, backupHTML;
 
+function backElem() {
+    backupElem.replaceWith(backupHTML);
+    formIsOpened = false;
+}
+
+function refreshDOM() {
+    formIsOpened = false;
+    $('.container').empty();
+    var head = '<div class="page-header"><h1>Comments loader ';
+    head += '<small>using AJAX to get JSON from *AMP to create DOM</small></h1></div>';
+    $('.container').html(head);
+    loadJSON();
+}
+
 function loadJSON() {
     $.getJSON('/comments/getcomments', function (data) {
-        console.log(data);
+//        console.log(data);
         var postCount = 1;
         $.each(data, function (key, val) {
             var insertTo = $(".container");
@@ -51,13 +65,13 @@ function showRecursive(data, place, num, reclvl) {
             var id = data.self.id;
             var form = '<form action="" id="myform" role="form" class="form-inline">';
             form += '<div class="form-group">';
-            form += '<label for="name">Name</label>';
+            form += '<label for="name">Name:</label>';
             form += '<input type="text" class="form-control" name="name" id="name" placeholder="Name"></div>';
             form += '<div class="form-group">';
-            form += '<label for="email">Email</label>';
+            form += '<label for="email">Email:</label>';
             form += '<input type="email" class="form-control" name="email" id="email" placeholder="email"></div>';
             form += '<div class="form-group">';
-            form += '<label for="message">Message</label>';
+            form += '<label for="message">Message:</label>';
             form += '<input type="text" class="form-control" name="message" id="message" placeholder="Message"></div>';
             form += '<input type="hidden" name="parent" id="parent" value="' + data.self.id + '">';
             form += '<span class="btn-group">';
@@ -83,9 +97,4 @@ function showRecursive(data, place, num, reclvl) {
             showRecursive(val, place, commentsCount++, reclvl + 1);
         });
     }
-}
-
-function backElem() {
-    backupElem.replaceWith(backupHTML);
-    formIsOpened = false;
 }

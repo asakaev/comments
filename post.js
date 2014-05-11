@@ -1,11 +1,17 @@
 function send() {
-	var name = $('#name').val();
-	var email = $('#email').val();
-    var message = $('#message').val();
-    var parentId = $('#parent').val();
+    var obj = {};
+	obj.name = $('#name').val();
+	obj.email = $('#email').val();
+    obj.message = $('#message').val();
+    obj.parentId = $('#parent').val();
 
-//    console.log('msg: ' + $('#message'));
-//    console.log('msg: ' + $('#message'));
+    $.post( "process.php", obj, function( data ) {
+        if(data.status == 'OK') {
+            console.log(data.status);
+            refreshDOM();
+        } else {
+            backElem();
+        }
 
-	console.log('name: ' + name + ', email: ' + email + ', message: ' + message + ', parentId: ' + parentId);
+    }, "json");
 }
