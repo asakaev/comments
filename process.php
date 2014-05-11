@@ -17,7 +17,6 @@ if (isset($_POST['name'])) {
 
 	$SQL = "INSERT INTO temp (name, email, message, parent)
 	VALUES ('$name', '$email', '$message', '$parent')";
-	// var_dump($SQL);
 
 	mysqli_query($con, $SQL);
 	mysqli_close($con);
