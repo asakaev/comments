@@ -9,6 +9,7 @@ Comments loader using AJAX to get JSON from *AMP to create DOM
 * jQuery, Twitter Bootstrap
 * PHP walker (tree traversal) by Marijan Šuflaj <msufflaj32@gmail.com>
 
+
 * Надо фиксить:
 * 1. Проверки нужно сделать на пустые поля. Если ничего не вводить то падать скорее всего будет.
 * 2. Много лишнего JSON передаётся от сервера.
