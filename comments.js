@@ -1,4 +1,6 @@
 var str, el, placeToForm;
+var formIsOpened = false;
+var backupElem, backupHTML;
 
 function loadJSON() {
     $.getJSON('/comments/getcomments', function (data) {
@@ -45,54 +47,32 @@ function showRecursive(data, place, num, reclvl) {
 
     // button handle
     $('#btn' + data.self.id).click(function () {
-        var form = '<form class="form-inline" role="form" id="repForm">';
-        form += '<div class="form-group">';
-        form += '<label class="sr-only" for="name">name</label>';
-        form += '<input type="text" class="form-control" id="text" placeholder="name"></div>';
-        form += '<div class="form-group">';
-        form += '<label class="sr-only" for="email">email</label>';
-        form += '<input type="email" class="form-control" id="email" placeholder="email"></div>';
-        form += '<input type="text" class="form-control" placeholder="comment">';
-        form += '<button type="submit" class="btn btn-default"">Reply</button></form>';
+        if (!formIsOpened) {
+            var id = data.self.id;
+            var form = '<form action="" id="myform" role="form" class="form-inline">';
+            form += '<div class="form-group">';
+            form += '<label for="name">Name</label>';
+            form += '<input type="text" class="form-control" name="name" id="name" placeholder="Name"></div>';
+            form += '<div class="form-group">';
+            form += '<label for="email">Email</label>';
+            form += '<input type="email" class="form-control" name="email" id="email" placeholder="email"></div>';
+            form += '<div class="form-group">';
+            form += '<label for="message">Message</label>';
+            form += '<input type="text" class="form-control" name="message" id="message" placeholder="Message"></div>';
+            form += '<input type="hidden" name="parent" id="parent" value="' + data.self.id + '">';
+            form += '<span class="btn-group">';
+            form += '<input type="button" onclick="send();" value="Reply" class="btn btn-default"></form>';
+            form += '<input type="button" onclick="backElem();" value="Cancel" class="btn btn-default"></span></form>';
 
-        console.log($('#btn' + data.self.id));
-
-        $('#btn' + data.self.id).parent().parent().html(form);
-
-
-        $("#repForm").submit(function(e) {
-            console.log($(this));
-//            var thisForm = $( this );
-//            console.log($(this).serializeArray());
-
-            var postData = $(this).serializeArray();
-            var formURL = $(this).attr("action");
-            $.ajax(
-                {
-                    url : formURL,
-                    type: "POST",
-                    data : postData + '&test=' + '55',
-                    success:function(data, textStatus, jqXHR)
-                    {
-                        //data: return data from server
-                    },
-                    error: function(jqXHR, textStatus, errorThrown)
-                    {
-                        //if fails
-                    }
-                });
-//            e.preventDefault(); //STOP default action
-//            e.unbind(); //unbind. to stop multiple form submit.
-
-
-//            var form = $( this ),
-//                url = form.attr( 'action' );
-//            var posting = $.post( url, { srEmail: ("#srEmail").val() } );
-//            posting.done(function( data ) {
-//                $("#results").append( html );
-            });
+            // this need to bring stuff back without reload
+            formIsOpened = true;
+            backupElem = $('#btn' + data.self.id).parent().parent();
+            backupHTML = backupElem.clone(true);
+            backupElem.html(form);
+        } else {
+            backElem();
+        }
     });
-
 
     // if no childs
     if (data.childs.length == 0) {
@@ -103,4 +83,9 @@ function showRecursive(data, place, num, reclvl) {
             showRecursive(val, place, commentsCount++, reclvl + 1);
         });
     }
+}
+
+function backElem() {
+    backupElem.replaceWith(backupHTML);
+    formIsOpened = false;
 }
