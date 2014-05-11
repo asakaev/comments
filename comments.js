@@ -73,6 +73,9 @@ function showRecursive(data, place, num, reclvl) {
             form += '<div class="form-group">';
             form += '<label for="message">Message:</label>';
             form += '<input type="text" class="form-control" name="message" id="message" placeholder="Message"></div>';
+            form += '<div class="form-group">';
+            form += '<label for="message">2+2=?</label>';
+            form += '<input type="text" class="form-control" name="captcha" id="captcha" placeholder="Try 3, who knows?!"></div>';
             form += '<input type="hidden" name="parent" id="parent" value="' + data.self.id + '">';
             form += '<span class="btn-group">';
             form += '<input type="button" onclick="send();" value="Reply" class="btn btn-default"></form>';
